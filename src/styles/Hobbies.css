@@ -8,7 +8,9 @@
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 6rem 2rem 2rem 2rem;
+  /* Padding-top accounts for fixed nav (70px) + spacing */
+  /* Adjust top padding if nav height changes */
   min-height: 100vh;
   /* Background color - customize here */
   /* background-color: #1a1a1a; */
@@ -18,18 +20,17 @@
 .page-title {
   font-size: 3rem;
   font-weight: 700;
+  line-height: 1.2;
   margin: 0 0 2rem 0;
+  padding-bottom: 0.5rem;
   text-align: center;
-  /* Gradient colors - customize here */
-  background: linear-gradient(135deg, #646cff 0%, #535bf2 100%);
+  /* Warm gradient */
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* Or use solid color instead:
-  color: #646cff;
-  */
-  /* Font family - customize here */
-  /* font-family: 'Your Font', sans-serif; */
+  display: block;
+  overflow: visible;
 }
 
 /* Page Content Container */
@@ -38,52 +39,51 @@
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
-  /* Adjust spacing between cards */
-  /* gap: 2rem; */
-  /* Change layout to grid if desired */
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem; */
 }
 
 /* Card Styling on Hobbies Page */
 .page-content .card {
   width: 100%;
   max-width: 800px;
-  /* Adjust card width */
-  /* max-width: 600px; */
 }
 
 /* Links in Hobbies Page */
 .page-content .card-content a {
-  color: #646cff;
+  color: var(--accent-primary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .page-content .card-content a:hover {
-  color: #535bf2;
+  color: var(--accent-secondary);
   text-decoration: underline;
 }
 
-/* ============================================
-   LIGHT MODE STYLES
-   ============================================ */
-@media (prefers-color-scheme: light) {
-  .page-title {
-    background: linear-gradient(135deg, #535bf2 0%, #646cff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .page-content .card-content a {
-    color: #535bf2;
-  }
-  
-  .page-content .card-content a:hover {
-    color: #646cff;
-  }
+/* Hobby Link Button */
+.hobby-link-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(201, 125, 96, 0.1);
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .hobby-link-button {
+  background: rgba(212, 165, 116, 0.1);
+}
+
+.hobby-link-button:hover {
+  background: rgba(201, 125, 96, 0.2);
+  color: var(--accent-secondary);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .hobby-link-button:hover {
+  background: rgba(212, 165, 116, 0.2);
 }
 
 /* ============================================
@@ -95,7 +95,8 @@
   }
   
   .page-container {
-    padding: 1rem;
+    padding: 5rem 1rem 1rem 1rem;
+    /* Reduced padding-top for mobile nav (60px) */
   }
   
   .page-content {

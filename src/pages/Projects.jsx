@@ -1,5 +1,17 @@
 import '../styles/Projects.css'
 import Card from '../components/Card'
+import { Link } from 'react-router-dom'
+
+// Project data - should match HamburgerMenu.jsx
+const projects = [
+  { 
+    id: 'CVBot', 
+    name: 'CVBot', 
+    path: '/projects/CVBot',
+    description: 'Agentic chatbot that answers questions about my career as if it were me.',
+    huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/professional_chatbot'
+  },
+]
 
 function Projects() {
   return (
@@ -7,41 +19,17 @@ function Projects() {
       <h1 className="page-title">My Projects</h1>
       
       <div className="page-content">
-        <Card title="Project 1 - Web Application">
-          <p>
-            <strong>Description:</strong> A full-stack web application built with React and Node.js.
-          </p>
-          <p>
-            <strong>Technologies:</strong> React, Node.js, MongoDB, Express
-          </p>
-          <p>
-            <strong>Link:</strong> <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-          </p>
-        </Card>
-
-        <Card title="Project 2 - Mobile App">
-          <p>
-            <strong>Description:</strong> A cross-platform mobile application for task management.
-          </p>
-          <p>
-            <strong>Technologies:</strong> React Native, Firebase, Redux
-          </p>
-          <p>
-            <strong>Link:</strong> <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-          </p>
-        </Card>
-
-        <Card title="Project 3 - Data Analysis Tool">
-          <p>
-            <strong>Description:</strong> A Python-based tool for analyzing and visualizing data sets.
-          </p>
-          <p>
-            <strong>Technologies:</strong> Python, Pandas, Matplotlib, Jupyter
-          </p>
-          <p>
-            <strong>Link:</strong> <a href="https://github.com/yourusername/project3" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-          </p>
-        </Card>
+        {projects.map((project) => (
+          <Card key={project.id} title={project.name}>
+            <p>{project.description}</p>
+            <Link 
+              to={project.path} 
+              className="project-link-button"
+            >
+              View Project →
+            </Link>
+          </Card>
+        ))}
       </div>
     </div>
   )

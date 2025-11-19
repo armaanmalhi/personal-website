@@ -1,0 +1,152 @@
+/* ============================================
+   PROJECT PAGE STYLES
+   ============================================
+   Customize the project page layout, colors, and spacing here
+   ============================================ */
+
+.project-container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 6rem 2rem 2rem 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+  /* Background color - customize here */
+  /* background-color: #1a1a1a; */
+}
+
+.project-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  /* Warm gradient */
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-description {
+  text-align: center;
+  color: var(--text-secondary);
+  margin: 0 0 2rem 0;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+/* Embed Wrapper */
+.project-embed-wrapper {
+  width: 100%;
+  max-width: 75%;
+  height: 80vh;
+  min-height: 600px;
+  margin: 2rem auto;
+  border-radius: 16px;
+  overflow: hidden;
+  /* Border - customize here */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Box shadow - customize here */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+  box-sizing: border-box;
+  /* Ensure full width usage */
+  display: block;
+}
+
+.project-embed {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* External Link */
+.project-link {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.external-link {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--accent-primary);
+  border-radius: 8px;
+}
+
+.external-link:hover {
+  color: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  background: rgba(201, 125, 96, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 125, 96, 0.25);
+}
+
+[data-theme="dark"] .external-link:hover {
+  background: rgba(212, 165, 116, 0.1);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.25);
+}
+
+/* ============================================
+   LIGHT MODE STYLES
+   ============================================ */
+@media (prefers-color-scheme: light) {
+  .project-title {
+    background: linear-gradient(135deg, #535bf2 0%, #646cff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .project-description {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .project-embed-wrapper {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+  .external-link {
+    color: #535bf2;
+    border-color: #535bf2;
+  }
+  
+  .external-link:hover {
+    color: #646cff;
+    border-color: #646cff;
+    background: rgba(83, 91, 242, 0.1);
+  }
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+@media (max-width: 768px) {
+  .project-title {
+    font-size: 2rem;
+  }
+  
+  .project-container {
+    padding: 5rem 1rem 1rem 1rem;
+    /* Reduced padding-top for mobile nav (60px) */
+  }
+  
+  .project-embed-wrapper {
+    height: 70vh;
+    min-height: 500px;
+  }
+  
+  .project-description {
+    font-size: 1rem;
+  }
+}
+

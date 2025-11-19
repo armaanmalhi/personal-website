@@ -19,8 +19,15 @@ function Home() {
           <strong>Location:</strong> Jersey City, New Jersey
         </p>
         <p style={{ marginTop: '1.5rem' }}>
-          Add your professional summary or bio here. This is where you can describe your background, 
-          skills, and what makes you unique. Customize this section to highlight your experience and expertise.
+          Software engineer based in Jersey City with experience building scalable backend 
+          services and customer-facing features across banking and retail, 
+          including GraphQL microservices for student-loan workflows at Citizens Bank and 
+          real-time tooling at Walmart Global Tech. I’ve worked with Kafka, cloud platforms such 
+          as Azure and GCP, OpenShift, Redis, and full-stack React and Python projects, and I 
+          enjoy owning systems end to end in production. I am now looking to start working in 
+          the AI space, especially where AI intersects with infrastructure and developer tooling, 
+          or to expand my experience in FinTech by building smarter and more reliable financial 
+          products at scale.
         </p>
       </Card>
     </div>
