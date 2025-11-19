@@ -1,0 +1,129 @@
+/* ============================================
+   BUTTON COMPONENT STYLES
+   ============================================
+   Customize button colors, sizes, fonts, and effects here
+   ============================================ */
+
+/* Base Button Styles */
+.btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-family: inherit;
+  outline: none;
+  /* Customize padding, font size, and border radius here */
+  /* padding: 10px 20px; */
+  /* font-size: 14px; */
+  /* border-radius: 4px; */
+}
+
+.btn:focus-visible {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+  /* Customize focus outline color */
+  /* outline-color: #your-color; */
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  /* Customize disabled state opacity */
+  /* opacity: 0.5; */
+}
+
+/* ============================================
+   BUTTON VARIANTS
+   ============================================ */
+
+/* Primary Button */
+.btn-primary {
+  /* Background color - customize here */
+  background-color: #646cff;
+  color: white;
+  /* Or use custom colors:
+  background-color: #your-color;
+  color: #your-text-color;
+  */
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #535bf2;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+  /* Customize hover colors and effects */
+  /* background-color: #your-hover-color; */
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(100, 108, 255, 0.2);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: transparent;
+  /* Border and text color - customize here */
+  color: #646cff;
+  border: 2px solid #646cff;
+  /* Or use custom colors:
+  color: #your-color;
+  border-color: #your-color;
+  */
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: rgba(100, 108, 255, 0.1);
+  transform: translateY(-1px);
+  /* Customize hover background */
+  /* background-color: rgba(your-r, your-g, your-b, 0.1); */
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Danger Button */
+.btn-danger {
+  /* Background color - customize here */
+  background-color: #ff4444;
+  color: white;
+  /* Or use custom colors:
+  background-color: #your-danger-color;
+  */
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #ff3333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+}
+
+.btn-danger:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(255, 68, 68, 0.2);
+}
+
+/* Success Button */
+.btn-success {
+  /* Background color - customize here */
+  background-color: #4caf50;
+  color: white;
+  /* Or use custom colors:
+  background-color: #your-success-color;
+  */
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-success:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.2);
+}
