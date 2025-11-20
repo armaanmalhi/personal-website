@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import '../styles/HamburgerMenu.css'
 import githubIcon from '../assets/github-mark.svg'
 import linkedinIcon from '../assets/linkedin-logo.svg'
@@ -19,6 +19,7 @@ function HamburgerMenu() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
   })
   const location = useLocation()
+  const navigate = useNavigate()
   const hobbiesTimeoutRef = useRef(null)
   const projectsTimeoutRef = useRef(null)
   const [buttonPosition, setButtonPosition] = useState({ top: 'auto', left: 'auto' })
@@ -651,8 +652,17 @@ function HamburgerMenu() {
             <Link 
               to="/hobbies" 
               className={`mobile-nav-item ${location.pathname === '/hobbies' || location.pathname.startsWith('/hobbies/') ? 'active' : ''}`}
-              onClick={() => {
-                setShowHobbiesDropdown(!showHobbiesDropdown)
+              onClick={(e) => {
+                // If dropdown is already open, navigate to /hobbies
+                if (showHobbiesDropdown) {
+                  e.preventDefault()
+                  navigate('/hobbies')
+                  setShowHobbiesDropdown(false)
+                  setIsMobileMenuOpen(false)
+                } else {
+                  // If closed, toggle dropdown
+                  setShowHobbiesDropdown(true)
+                }
               }}
             >
               Hobbies <span className="dropdown-arrow">▼</span>
@@ -678,8 +688,17 @@ function HamburgerMenu() {
             <Link 
               to="/projects" 
               className={`mobile-nav-item ${location.pathname === '/projects' || location.pathname.startsWith('/projects/') ? 'active' : ''}`}
-              onClick={() => {
-                setShowProjectsDropdown(!showProjectsDropdown)
+              onClick={(e) => {
+                // If dropdown is already open, navigate to /projects
+                if (showProjectsDropdown) {
+                  e.preventDefault()
+                  navigate('/projects')
+                  setShowProjectsDropdown(false)
+                  setIsMobileMenuOpen(false)
+                } else {
+                  // If closed, toggle dropdown
+                  setShowProjectsDropdown(true)
+                }
               }}
             >
               Projects <span className="dropdown-arrow">▼</span>

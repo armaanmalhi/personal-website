@@ -12,6 +12,9 @@
   /* Padding-top accounts for fixed nav (70px) + spacing */
   /* Adjust top padding if nav height changes */
   min-height: 100vh;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
   /* Background color - customize here */
   /* background-color: #1a1a1a; */
 }
@@ -39,12 +42,15 @@
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Card Styling on Projects Page */
 .page-content .card {
   width: 100%;
   max-width: 800px;
+  box-sizing: border-box;
 }
 
 /* Links in Projects Page */
@@ -98,10 +104,20 @@
   .page-container {
     padding: 5rem 1rem 1rem 1rem;
     /* Reduced padding-top for mobile nav (60px) */
+    width: 100%;
+    max-width: 100%;
   }
   
   .page-content {
     gap: 1rem;
+    width: 100%;
+    padding: 0;
+  }
+  
+  .page-content .card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
   }
 }
 
