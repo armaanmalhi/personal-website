@@ -4,9 +4,12 @@ import '../styles/HamburgerMenu.css'
 import githubIcon from '../assets/github-mark.svg'
 import linkedinIcon from '../assets/linkedin-logo.svg'
 import huggingFaceIcon from '../assets/hf-logo.svg'
+import sunIcon from '../assets/sun.svg'
+import moonIcon from '../assets/moon.svg'
 function HamburgerMenu() {
   const [showHobbiesDropdown, setShowHobbiesDropdown] = useState(false)
   const [showProjectsDropdown, setShowProjectsDropdown] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Check localStorage first, then system preference
     const saved = localStorage.getItem('darkMode')
@@ -70,6 +73,18 @@ function HamburgerMenu() {
     }
   }, []) // Only run on mount
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
+
   // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
@@ -107,10 +122,10 @@ function HamburgerMenu() {
         if (prev <= 1) {
           // Timer reached 0, reset everything
           setIsCooldown(false)
-          setIsFirstMove(true)
-          setMessageIndex(0)
-          setButtonPosition({ top: 'auto', left: 'auto' })
-          // Clear localStorage
+        setIsFirstMove(true)
+        setMessageIndex(0)
+        setButtonPosition({ top: 'auto', left: 'auto' })
+        // Clear localStorage
           localStorage.removeItem('withdrawButtonCooldown')
           localStorage.removeItem('withdrawButtonTimer')
           return 99999999999999 // Reset timer for next time
@@ -132,6 +147,7 @@ function HamburgerMenu() {
   const handleNavClick = () => {
     setShowHobbiesDropdown(false)
     setShowProjectsDropdown(false)
+    setIsMobileMenuOpen(false) // Close mobile menu when navigating
   }
 
   const moveButtonAway = () => {
@@ -179,55 +195,128 @@ function HamburgerMenu() {
     const buttonWidth = buttonRect.width || 250 // fallback width
     const buttonHeight = buttonRect.height || 40 // fallback height
     
+    // Check if we're in mobile menu and on mobile screen
+    const isMobileScreen = window.innerWidth <= 768
+    
     // If this is the first move (button is still relative), capture current position first
     if (isFirstMove) {
-      // Get current position in viewport coordinates
-      const currentTop = buttonRect.top
-      const currentLeft = buttonRect.left
+      // Re-check conditions to determine if we should constrain
+      const currentIsMobileScreen = window.innerWidth <= 768
+      const mobileMenuContent = currentIsMobileScreen ? document.querySelector('.mobile-menu-content') : null
+      const isInMobileMenu = currentIsMobileScreen && mobileMenuContent && mobileMenuContent.contains(button) && isMobileMenuOpen
       
-      // Set to fixed position at current location first (without transition)
-      setButtonPosition({
-        top: `${currentTop}px`,
-        left: `${currentLeft}px`
-      })
       setIsFirstMove(false)
       
-      // Use double requestAnimationFrame to ensure the position is set and rendered before transitioning
-      requestAnimationFrame(() => {
+      if (isInMobileMenu && mobileMenuContent) {
+        // Mobile: Set to current position first, then move within menu bounds
+        const currentTop = buttonRect.top
+        const currentLeft = buttonRect.left
+        
+        // Set to fixed position at current location first (without transition)
+        setButtonPosition({
+          top: `${currentTop}px`,
+          left: `${currentLeft}px`
+        })
+        
+        // Use double requestAnimationFrame to ensure the position is set and rendered before transitioning
         requestAnimationFrame(() => {
-          // Now calculate new position and smoothly transition
-          const navHeight = 70 // nav height
-          const padding = 20 // padding from edges
-          const availableTop = navHeight + padding
-          const availableHeight = Math.max(100, viewportHeight - navHeight - buttonHeight - padding * 2)
-          const availableWidth = Math.max(100, viewportWidth - buttonWidth - padding * 2)
-          
-          // Generate random position in available space
-          const randomTop = availableTop + Math.random() * availableHeight
-          const randomLeft = padding + Math.random() * availableWidth
-          
-          setButtonPosition({
-            top: `${randomTop}px`,
-            left: `${randomLeft}px`
+          requestAnimationFrame(() => {
+            // Constrain to mobile menu bounds
+            const menuRect = mobileMenuContent.getBoundingClientRect()
+            const padding = 15
+            const availableTop = padding
+            const availableHeight = Math.max(50, menuRect.height - buttonHeight - padding * 2)
+            const availableWidth = Math.max(50, menuRect.width - buttonWidth - padding * 2)
+            
+            const randomTop = availableTop + Math.random() * availableHeight
+            const randomLeft = padding + Math.random() * availableWidth
+            
+            // Ensure button stays within menu bounds
+            const finalLeft = Math.max(menuRect.left + padding, Math.min(menuRect.left + randomLeft, menuRect.right - buttonWidth - padding))
+            const finalTop = Math.max(menuRect.top + padding, Math.min(menuRect.top + randomTop, menuRect.bottom - buttonHeight - padding))
+            
+            setButtonPosition({
+              top: `${finalTop}px`,
+              left: `${finalLeft}px`
+            })
           })
         })
-      })
+      } else {
+        // Desktop: Set to current position first, then smoothly move to random position
+        const currentTop = buttonRect.top
+        const currentLeft = buttonRect.left
+        
+        // Set to fixed position at current location first (without transition)
+        setButtonPosition({
+          top: `${currentTop}px`,
+          left: `${currentLeft}px`
+        })
+        
+        // Use double requestAnimationFrame to ensure the position is set and rendered before transitioning
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            // Desktop: move freely across entire viewport
+            const navHeight = 70 // nav height
+            const padding = 20 // padding from edges
+            const availableTop = navHeight + padding
+            const availableHeight = Math.max(100, viewportHeight - navHeight - buttonHeight - padding * 2)
+            const availableWidth = Math.max(100, viewportWidth - buttonWidth - padding * 2)
+            
+            // Generate random position in available space
+            const randomTop = availableTop + Math.random() * availableHeight
+            const randomLeft = padding + Math.random() * availableWidth
+            
+            setButtonPosition({
+              top: `${randomTop}px`,
+              left: `${randomLeft}px`
+            })
+          })
+        })
+      }
     } else {
       // Button is already fixed, just move to new position smoothly
-      const navHeight = 70 // nav height
-      const padding = 20 // padding from edges
-      const availableTop = navHeight + padding
-      const availableHeight = Math.max(100, viewportHeight - navHeight - buttonHeight - padding * 2)
-      const availableWidth = Math.max(100, viewportWidth - buttonWidth - padding * 2)
+      // Re-check conditions to ensure we have current state
+      // Only constrain on mobile screens when menu is open
+      const currentIsMobileScreen = window.innerWidth <= 768
+      const mobileMenuContent = currentIsMobileScreen ? document.querySelector('.mobile-menu-content') : null
+      const isInMobileMenu = currentIsMobileScreen && mobileMenuContent && mobileMenuContent.contains(button) && isMobileMenuOpen
       
-      // Generate random position in available space
-      const randomTop = availableTop + Math.random() * availableHeight
-      const randomLeft = padding + Math.random() * availableWidth
-      
-      setButtonPosition({
-        top: `${randomTop}px`,
-        left: `${randomLeft}px`
-      })
+      if (isInMobileMenu && mobileMenuContent) {
+        // Constrain to mobile menu bounds
+        const menuRect = mobileMenuContent.getBoundingClientRect()
+        const padding = 15
+        const availableTop = padding
+        const availableHeight = Math.max(50, menuRect.height - buttonHeight - padding * 2)
+        const availableWidth = Math.max(50, menuRect.width - buttonWidth - padding * 2)
+        
+        const randomTop = availableTop + Math.random() * availableHeight
+        const randomLeft = padding + Math.random() * availableWidth
+        
+        // Ensure button stays within menu bounds
+        const finalLeft = Math.max(menuRect.left + padding, Math.min(menuRect.left + randomLeft, menuRect.right - buttonWidth - padding))
+        const finalTop = Math.max(menuRect.top + padding, Math.min(menuRect.top + randomTop, menuRect.bottom - buttonHeight - padding))
+        
+        setButtonPosition({
+          top: `${finalTop}px`,
+          left: `${finalLeft}px`
+        })
+      } else {
+        // Desktop: move freely across viewport
+        const navHeight = 70 // nav height
+        const padding = 20 // padding from edges
+        const availableTop = navHeight + padding
+        const availableHeight = Math.max(100, viewportHeight - navHeight - buttonHeight - padding * 2)
+        const availableWidth = Math.max(100, viewportWidth - buttonWidth - padding * 2)
+        
+        // Generate random position in available space
+        const randomTop = availableTop + Math.random() * availableHeight
+        const randomLeft = padding + Math.random() * availableWidth
+        
+        setButtonPosition({
+          top: `${randomTop}px`,
+          left: `${randomLeft}px`
+        })
+      }
     }
   }
 
@@ -265,6 +354,18 @@ function HamburgerMenu() {
       )}
       <nav className="horizontal-nav">
       <div className="nav-container">
+        {/* Hamburger button for mobile */}
+        <button
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+        </button>
+
         <div className="nav-links">
           <span
             id="darkmode"
@@ -533,6 +634,158 @@ function HamburgerMenu() {
         </div>
       </div>
     </nav>
+    
+    {/* Mobile Menu Overlay */}
+    <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+      <div className="mobile-menu-content" onClick={(e) => e.stopPropagation()}>
+        <div className="mobile-menu-items">
+          <Link 
+            to="/" 
+            className={`mobile-nav-item ${location.pathname === '/' ? 'active' : ''}`}
+            onClick={handleNavClick}
+          >
+            Home
+          </Link>
+
+          <div className="mobile-nav-section">
+            <Link 
+              to="/hobbies" 
+              className={`mobile-nav-item ${location.pathname === '/hobbies' || location.pathname.startsWith('/hobbies/') ? 'active' : ''}`}
+              onClick={() => {
+                setShowHobbiesDropdown(!showHobbiesDropdown)
+              }}
+            >
+              Hobbies <span className="dropdown-arrow">▼</span>
+            </Link>
+            {showHobbiesDropdown && (
+              <div className="mobile-dropdown">
+                {hobbies.map((hobby, index) => (
+                  <Link
+                    key={index}
+                    to={`/hobbies/${encodeURIComponent(hobby.name)}`}
+                    className={`mobile-dropdown-item ${location.pathname === `/hobbies/${encodeURIComponent(hobby.name)}` ? 'active' : ''}`}
+                    onClick={handleNavClick}
+                  >
+                    <strong>{hobby.name}</strong>
+                    <span>{hobby.description}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="mobile-nav-section">
+            <Link 
+              to="/projects" 
+              className={`mobile-nav-item ${location.pathname === '/projects' || location.pathname.startsWith('/projects/') ? 'active' : ''}`}
+              onClick={() => {
+                setShowProjectsDropdown(!showProjectsDropdown)
+              }}
+            >
+              Projects <span className="dropdown-arrow">▼</span>
+            </Link>
+            {showProjectsDropdown && (
+              <div className="mobile-dropdown">
+                {projects.map((project) => (
+                  <Link
+                    key={project.id}
+                    to={project.path}
+                    className={`mobile-dropdown-item ${location.pathname === project.path ? 'active' : ''}`}
+                    onClick={handleNavClick}
+                  >
+                    <strong>{project.name}</strong>
+                    <span>View project details</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button
+            ref={buttonRef}
+            className={`mobile-nav-item withdraw-button ${isCooldown ? 'cooldown' : ''}`}
+            onMouseEnter={!isCooldown ? moveButtonAway : undefined}
+            onMouseDown={(e) => {
+              if (!isCooldown) {
+                e.preventDefault()
+                e.stopPropagation()
+                moveButtonAway()
+              }
+            }}
+            onTouchStart={(e) => {
+              if (!isCooldown) {
+                e.preventDefault()
+                e.stopPropagation()
+                moveButtonAway()
+              }
+            }}
+            onClick={(e) => {
+              if (!isCooldown) {
+                e.preventDefault()
+                e.stopPropagation()
+                moveButtonAway()
+              }
+            }}
+            style={{
+              position: buttonPosition.top === 'auto' ? 'relative' : 'fixed',
+              top: buttonPosition.top,
+              left: buttonPosition.left,
+              zIndex: buttonPosition.top === 'auto' ? 'auto' : 10000,
+              transition: isFirstMove ? 'none' : 'top 0.2s ease-out, left 0.2s ease-out',
+            }}
+            type="button"
+          >
+            {isCooldown 
+              ? `(cooldown ${cooldownTimer.toLocaleString()})`
+              : messageIndex === 0
+              ? 'Withdraw $1000 from my bank account'
+              : messageIndex <= messages.length
+              ? messages[messageIndex - 1]
+              : 'Withdraw $1000 from my bank account'
+            }
+          </button>
+
+          <div className="mobile-menu-social">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mobile-social-link"
+                aria-label={social.name}
+                onClick={handleNavClick}
+              >
+                <img 
+                  src={social.icon} 
+                  alt={social.name} 
+                  className={`social-icon-svg ${
+                    social.name === 'HuggingFace' ? 'huggingface-icon' : 
+                    social.name === 'LinkedIn' ? 'linkedin-icon' :
+                    social.name === 'GitHub' ? 'github-icon' : ''
+                  }`}
+                />
+              </a>
+            ))}
+          </div>
+
+          <button
+            className="mobile-nav-item theme-toggle-mobile"
+            onClick={() => {
+              toggleDarkMode()
+            }}
+            aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            <img 
+              src={isDarkMode ? sunIcon : moonIcon} 
+              alt={isDarkMode ? 'Sun icon' : 'Moon icon'}
+              className="theme-toggle-icon"
+            />
+            <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+          </button>
+        </div>
+      </div>
+    </div>
     </>
   )
 }
