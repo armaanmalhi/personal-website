@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const hobbies = [
   {
     name: 'Snowboarding',
-    description: "I willingly strap myself to a board and launch down a mountain because the mix of speed, risk, and silence is the perfect reset. It's an adrenaline rush, but it also feels like freedom—no notifications, no noise, just fresh snow, sharp turns, and the constant reminder that balance (literally and figuratively) matters.",
+    description: "I willingly strap myself to a board and launch down a mountain because the mix of speed, risk, and silence is the perfect reset. It's an adrenaline rush, but it also feels like freedom, with no notifications, no noise, just fresh snow, sharp turns, and the constant reminder that balance (literally and figuratively) matters.",
   },
   {
     name: 'Traveling',
@@ -14,11 +14,11 @@ const hobbies = [
   },
   {
     name: 'Cooking',
-    description: "Cooking is my creative outlet in the kitchen. I love experimenting with flavors, trying new recipes, and turning simple ingredients into something delicious. There's something satisfying about the process—from planning a meal to seeing the final dish come together. Whether it's mastering a classic technique or improvising with what's in the fridge, cooking keeps me grounded and always learning.",
+    description: "Cooking is my creative outlet in the kitchen. I love experimenting with flavors, trying new recipes, and turning simple ingredients into something delicious. There's something satisfying about the process, from planning a meal to seeing the final dish come together. Whether it's mastering a classic technique or improvising with what's in the fridge, cooking keeps me grounded and always learning.",
   },
   {
     name: 'Fashion',
-    description: "For me, style is the easiest way to say a lot without saying anything. I like treating outfits as a kind of visual first impression—whether it's clean and minimal or a little experimental, it's always intentional. It's a fun mix of self-expression and design, and if someone asks, 'Where'd you get that?' I take it as a small win.",
+    description: "For me, style is the easiest way to say a lot without saying anything. I like treating outfits as a kind of visual first impression, whether it's clean and minimal or a little experimental, it's always intentional. It's a fun mix of self-expression and design, and if someone asks, 'Where'd you get that?' I take it as a small win.",
   },
 ]
 

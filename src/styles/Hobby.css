@@ -23,6 +23,8 @@
   gap: 3rem;
   width: 100%;
   max-width: 1400px;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 /* ============================================
@@ -59,16 +61,12 @@
   border-radius: 16px;
   box-shadow: 0 8px 32px var(--shadow-color);
   border: 1px solid var(--accent-primary);
-  transform: rotate(-90deg);
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  overflow: hidden;
+  margin: 0 auto 20px auto;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  user-select: none;
+  pointer-events: none;
 }
 
 .hobby-gallery-container:hover {
@@ -81,17 +79,22 @@
 }
 
 .hobby-gallery-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: flex-start;
-  transform: rotate(90deg);
-  width: 500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  min-height: 500px;
   background-size: cover;
   background-position: center;
   border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.hobby-gallery-section.active {
+  opacity: 1;
+  z-index: 1;
 }
 
 .hobby-gallery-nav {
@@ -166,6 +169,7 @@
   max-width: 600px;
   padding-top: 0;
   margin-top: 0;
+  box-sizing: border-box;
 }
 
 .hobby-gallery-wrapper {
@@ -200,6 +204,8 @@
 
 .hobby-content .card {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* ============================================
@@ -220,6 +226,14 @@
     width: 100%;
     max-width: 800px;
     align-items: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+  
+  .hobby-content .card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -235,30 +249,45 @@
 
   .hobby-gallery-container {
     height: 400px;
-    max-width: 100%;
-  }
-
-  .hobby-gallery-section {
     width: 400px;
-    min-height: 400px;
+    max-width: calc(100vw - 2rem);
   }
 
   .hobby-gallery-wrapper {
     max-width: 100%;
+    width: 100%;
   }
 
   .hobby-content {
     gap: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+  
+  .hobby-content .card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
 @media (max-width: 480px) {
   .hobby-gallery-container {
     height: 300px;
-  }
-
-  .hobby-gallery-section {
     width: 300px;
-    min-height: 300px;
+    max-width: calc(100vw - 2rem);
+  }
+  
+  .hobby-content {
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+  
+  .hobby-content .card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
