@@ -803,8 +803,8 @@ function HamburgerMenu() {
             aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             <img 
-              src={isDarkMode ? sunIcon : moonIcon} 
-              alt={isDarkMode ? 'Sun icon' : 'Moon icon'}
+              src={isDarkMode ? moonIcon : sunIcon} 
+              alt={isDarkMode ? 'Moon icon' : 'Sun icon'}
               className="theme-toggle-icon"
             />
             <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
