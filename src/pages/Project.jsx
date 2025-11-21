@@ -5,7 +5,7 @@ import '../styles/Project.css'
 const projects = {
   project1: {
     name: 'CVBot',
-    huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/professional_chatbot', // Replace with your Hugging Face space URL
+    huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/CVBot', // Replace with your Hugging Face space URL
     description: "I’m a chatbot pretending to be Armaan so you can grill ‘him’ about his career without actually making eye contact."
   },
   project2: {
