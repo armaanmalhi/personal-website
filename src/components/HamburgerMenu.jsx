@@ -771,45 +771,45 @@ function HamburgerMenu() {
             }
           </button>
 
-          <div className="mobile-menu-social">
-            {socialLinks.map((social, index) => (
-              <a
-                key={index}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mobile-social-link"
-                aria-label={social.name}
-                onClick={handleNavClick}
-              >
-                <img 
-                  src={social.icon} 
-                  alt={social.name} 
-                  className={`social-icon-svg ${
-                    social.name === 'HuggingFace' ? 'huggingface-icon' : 
-                    social.name === 'LinkedIn' ? 'linkedin-icon' :
-                    social.name === 'GitHub' ? 'github-icon' : ''
-                  }`}
-                />
-              </a>
-            ))}
-          </div>
-
-          <button
-            className="mobile-nav-item theme-toggle-mobile"
-            onClick={() => {
-              toggleDarkMode()
-            }}
-            aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            <img 
-              src={isDarkMode ? moonIcon : sunIcon} 
-              alt={isDarkMode ? 'Moon icon' : 'Sun icon'}
-              className="theme-toggle-icon"
-            />
-            <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-          </button>
         </div>
+        
+        <div className="mobile-menu-social">
+          {socialLinks.map((social, index) => (
+            <a
+              key={index}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mobile-social-link"
+              aria-label={social.name}
+              onClick={handleNavClick}
+            >
+              <img 
+                src={social.icon} 
+                alt={social.name} 
+                className={`social-icon-svg ${
+                  social.name === 'HuggingFace' ? 'huggingface-icon' : 
+                  social.name === 'LinkedIn' ? 'linkedin-icon' :
+                  social.name === 'GitHub' ? 'github-icon' : ''
+                }`}
+              />
+            </a>
+          ))}
+        </div>
+
+        <button
+          className="theme-toggle-mobile"
+          onClick={() => {
+            toggleDarkMode()
+          }}
+          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          <img 
+            src={isDarkMode ? moonIcon : sunIcon} 
+            alt={isDarkMode ? 'Moon icon' : 'Sun icon'}
+            className="theme-toggle-icon"
+          />
+        </button>
       </div>
     </div>
     </>
