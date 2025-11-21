@@ -13,10 +13,17 @@ function HamburgerMenu() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Check localStorage first, then system preference
     const saved = localStorage.getItem('darkMode')
+    let initialMode
     if (saved !== null) {
-      return saved === 'true'
+      initialMode = saved === 'true'
+    } else {
+      initialMode = window.matchMedia('(prefers-color-scheme: dark)').matches
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
+    // Apply theme immediately to prevent flash
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', initialMode ? 'dark' : 'light')
+    }
+    return initialMode
   })
   const location = useLocation()
   const navigate = useNavigate()
