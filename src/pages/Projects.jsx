@@ -9,7 +9,7 @@ const projects = [
     name: 'CVBot', 
     path: '/projects/CVBot',
     description: 'Agentic chatbot that answers questions about my career as if it were me.',
-    huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/professional_chatbot'
+    huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/CVBot'
   },
 ]
 
