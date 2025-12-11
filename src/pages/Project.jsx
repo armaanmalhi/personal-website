@@ -9,9 +9,9 @@ const projects = {
     description: "I’m a chatbot pretending to be Armaan so you can grill ‘him’ about his career without actually making eye contact."
   },
   project2: {
-    name: 'Project 2',
-    huggingfaceUrl: 'https://huggingface.co/spaces/username/project2', // Replace with your Hugging Face space URL
-    description: 'Description of Project 2'
+    name: 'Super Search',
+    huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/Super_Search',
+    description: 'A search engine that uses AI Agents to dig through a bunch of links so you dont have to.'
   },
   project3: {
     name: 'Project 3',

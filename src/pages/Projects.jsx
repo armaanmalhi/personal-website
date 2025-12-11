@@ -11,6 +11,13 @@ const projects = [
     description: 'Agentic chatbot that answers questions about my career as if it were me.',
     huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/CVBot'
   },
+  { 
+    id: 'Super Search', 
+    name: 'Super Search', 
+    path: '/projects/Super Search',
+    description: 'A search engine that uses AI Agents to dig through a bunch of links so you dont have to.',
+    huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/Super_Search'
+  },
 ]
 
 function Projects() {

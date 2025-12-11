@@ -83,7 +83,13 @@ function HamburgerMenu() {
       id: 'CVBot', 
       name: 'CVBot', 
       path: '/projects/CVBot',
-      huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/professional_chatbot?logs=build' // Replace with your Hugging Face space URL
+      huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/professional_chatbot?logs=build'
+    },
+    { 
+      id: 'Super Search', 
+      name: 'Super Search', 
+      path: '/projects/Super Search',
+      huggingfaceUrl: 'https://huggingface.co/spaces/amalhi/Super_Search'
     },
   ]
 
