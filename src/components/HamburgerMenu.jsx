@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import '../styles/HamburgerMenu.css'
 import githubIcon from '../assets/github-mark.svg'
 import linkedinIcon from '../assets/linkedin-logo.svg'
@@ -26,7 +26,6 @@ function HamburgerMenu() {
     return initialMode
   })
   const location = useLocation()
-  const navigate = useNavigate()
   const hobbiesTimeoutRef = useRef(null)
   const projectsTimeoutRef = useRef(null)
 
@@ -125,33 +124,6 @@ function HamburgerMenu() {
         </button>
 
         <div className="nav-links">
-          <span
-            id="darkmode"
-            role="button"
-            tabIndex={0}
-            onClick={toggleDarkMode}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                toggleDarkMode()
-              }
-            }}
-            className="theme-toggle"
-            aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            <div className="darkmode_icon">
-              <span className="ray"></span>
-              <span className="ray"></span>
-              <span className="ray"></span>
-              <span className="ray"></span>
-              <span className="ray"></span>
-              <span className="ray"></span>
-              <span className="ray"></span>
-              <span className="ray"></span>
-            </div>
-          </span>
-
           <Link 
             to="/" 
             className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
@@ -346,6 +318,32 @@ function HamburgerMenu() {
             </a>
           ))}
         </div>
+        <span
+          id="darkmode"
+          role="button"
+          tabIndex={0}
+          onClick={toggleDarkMode}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              toggleDarkMode()
+            }
+          }}
+          className="theme-toggle"
+          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          <div className="darkmode_icon">
+            <span className="ray"></span>
+            <span className="ray"></span>
+            <span className="ray"></span>
+            <span className="ray"></span>
+            <span className="ray"></span>
+            <span className="ray"></span>
+            <span className="ray"></span>
+            <span className="ray"></span>
+          </div>
+        </span>
       </div>
     </nav>
     
@@ -362,24 +360,26 @@ function HamburgerMenu() {
           </Link>
 
           <div className="mobile-nav-section">
-            <Link 
-              to="/hobbies" 
-              className={`mobile-nav-item ${location.pathname === '/hobbies' || location.pathname.startsWith('/hobbies/') ? 'active' : ''}`}
-              onClick={(e) => {
-                // If dropdown is already open, navigate to /hobbies
-                if (showHobbiesDropdown) {
+            <div className={`mobile-nav-item-wrapper ${location.pathname === '/hobbies' || location.pathname.startsWith('/hobbies/') ? 'active' : ''}`}>
+              <Link 
+                to="/hobbies" 
+                className={`mobile-nav-item ${location.pathname === '/hobbies' || location.pathname.startsWith('/hobbies/') ? 'active' : ''}`}
+                onClick={handleNavClick}
+              >
+                Hobbies
+              </Link>
+              <button
+                className="mobile-dropdown-toggle"
+                onClick={(e) => {
                   e.preventDefault()
-                  navigate('/hobbies')
-                  setShowHobbiesDropdown(false)
-                  setIsMobileMenuOpen(false)
-                } else {
-                  // If closed, toggle dropdown
-                  setShowHobbiesDropdown(true)
-                }
-              }}
-            >
-              Hobbies <span className="dropdown-arrow">▼</span>
-            </Link>
+                  e.stopPropagation()
+                  setShowHobbiesDropdown(!showHobbiesDropdown)
+                }}
+                aria-label={showHobbiesDropdown ? 'Collapse hobbies menu' : 'Expand hobbies menu'}
+              >
+                <span className={`dropdown-arrow ${showHobbiesDropdown ? 'open' : ''}`}>▼</span>
+              </button>
+            </div>
             {showHobbiesDropdown && (
               <div className="mobile-dropdown">
                 {hobbies.map((hobby, index) => (
@@ -398,24 +398,26 @@ function HamburgerMenu() {
           </div>
 
           <div className="mobile-nav-section">
-            <Link 
-              to="/projects" 
-              className={`mobile-nav-item ${location.pathname === '/projects' || location.pathname.startsWith('/projects/') ? 'active' : ''}`}
-              onClick={(e) => {
-                // If dropdown is already open, navigate to /projects
-                if (showProjectsDropdown) {
+            <div className={`mobile-nav-item-wrapper ${location.pathname === '/projects' || location.pathname.startsWith('/projects/') ? 'active' : ''}`}>
+              <Link 
+                to="/projects" 
+                className={`mobile-nav-item ${location.pathname === '/projects' || location.pathname.startsWith('/projects/') ? 'active' : ''}`}
+                onClick={handleNavClick}
+              >
+                Projects
+              </Link>
+              <button
+                className="mobile-dropdown-toggle"
+                onClick={(e) => {
                   e.preventDefault()
-                  navigate('/projects')
-                  setShowProjectsDropdown(false)
-                  setIsMobileMenuOpen(false)
-                } else {
-                  // If closed, toggle dropdown
-                  setShowProjectsDropdown(true)
-                }
-              }}
-            >
-              Projects <span className="dropdown-arrow">▼</span>
-            </Link>
+                  e.stopPropagation()
+                  setShowProjectsDropdown(!showProjectsDropdown)
+                }}
+                aria-label={showProjectsDropdown ? 'Collapse projects menu' : 'Expand projects menu'}
+              >
+                <span className={`dropdown-arrow ${showProjectsDropdown ? 'open' : ''}`}>▼</span>
+              </button>
+            </div>
             {showProjectsDropdown && (
               <div className="mobile-dropdown">
                 {projects.map((project) => (
@@ -433,44 +435,6 @@ function HamburgerMenu() {
             )}
           </div>
         </div>
-        
-        <div className="mobile-menu-social">
-          {socialLinks.map((social, index) => (
-            <a
-              key={index}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mobile-social-link"
-              aria-label={social.name}
-              onClick={handleNavClick}
-            >
-              <img 
-                src={social.icon} 
-                alt={social.name} 
-                className={`social-icon-svg ${
-                  social.name === 'HuggingFace' ? 'huggingface-icon' : 
-                  social.name === 'LinkedIn' ? 'linkedin-icon' :
-                  social.name === 'GitHub' ? 'github-icon' : ''
-                }`}
-              />
-            </a>
-          ))}
-        </div>
-
-        <button
-          className="theme-toggle-mobile"
-          onClick={() => {
-            toggleDarkMode()
-          }}
-          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-        >
-          <img 
-            src={isDarkMode ? moonIcon : sunIcon} 
-            alt={isDarkMode ? 'Moon icon' : 'Sun icon'}
-            className="theme-toggle-icon"
-          />
-        </button>
       </div>
     </div>
     </>
